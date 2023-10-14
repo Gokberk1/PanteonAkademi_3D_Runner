@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float runningSpeed;
+    public float runningSpeed;
     [SerializeField] float xSpeed;
     [SerializeField] float limitX;
     float touchXDelta = 0;
     float newX = 0;
 
-    
+
     void Update()
     {
         SwipeCheck();
