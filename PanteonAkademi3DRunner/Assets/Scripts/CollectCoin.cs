@@ -9,6 +9,14 @@ public class CollectCoin : MonoBehaviour
     [SerializeField] int score;
     [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] PlayerController playerController;
+    [SerializeField] GameObject player;
+    Animator playerAnim;
+    [SerializeField] GameObject endPanel;
+
+    private void Start()
+    {
+        playerAnim = player.GetComponentInChildren<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +28,16 @@ public class CollectCoin : MonoBehaviour
         else if (other.CompareTag("End"))
         {
             playerController.runningSpeed = 0;
-            Debug.Log("finish");
+            endPanel.SetActive(true); 
+
+            if(score >= 10)
+            {
+                playerAnim.SetBool("win",true);
+            }
+            else
+            {
+                playerAnim.SetBool("lose", true);
+            }
         }
     }
 
@@ -37,5 +54,10 @@ public class CollectCoin : MonoBehaviour
     {
         score++;
         coinText.text = "Score" + score.ToString();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
